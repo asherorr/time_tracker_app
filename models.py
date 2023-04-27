@@ -11,7 +11,7 @@ class Tracker(Base):
     __tablename__ = "Time_Spent_And_Stats"
     id= Column(Integer, primary_key=True)
     day = Column("Day", Date)
-    time_spent = Column("Time Spent (Minutes)", int)
+    time_spent = Column("Time Spent (Minutes)", Integer)
     
 def __repr__(self):
     return f'Day: {self.day} Time Spent: {self.time_spent}'
