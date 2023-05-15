@@ -10,7 +10,7 @@ Base = declarative_base()
 class Tracker(Base):
     __tablename__ = "Time_Spent_And_Stats"
     id= Column(Integer, primary_key=True)
-    day = Column("Day", Date)
+    #day = Column("Day", Date)
     time_spent = Column("Time Spent (Minutes)", Integer)
     
 def __repr__(self):
