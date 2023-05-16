@@ -34,9 +34,12 @@ def app():
             print("Entry added!")
             time.sleep(1.5)
         elif choice == "2":
-            #all_times = session.query(Tracker).all
-            average_of_times = average(all_times)
-            print(average_of_times)
+            list_of_times = []
+            for entry in session.query(Tracker).all():
+                entry = entry.time_spent
+                list_of_times.append(entry)
+            average_of_times = mean(list_of_times)
+            print(f'This is the average time spent: {average_of_times} minutes')
         else:
             print("Goodbye!")
             app_running = False
