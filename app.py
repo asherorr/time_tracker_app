@@ -12,9 +12,10 @@ def menu():
         \r----
         \r1) Add Event
         \r2) See Statistics
+        \r3) Delete all entries
         ''')
         choice = input("What would you like to do? ")
-        if choice in ["1", "2"]:
+        if choice in ["1", "2", "3"]:
             return choice
         else:
             input('''
@@ -40,6 +41,11 @@ def app():
                 list_of_times.append(entry)
             average_of_times = mean(list_of_times)
             print(f'This is the average time spent: {average_of_times} minutes')
+            time.sleep(2)
+        elif choice == "3":
+            for entry in session.query(Tracker).all():
+                session.delete(entry)
+            print("All the previous entries have been deleted.")
         else:
             print("Goodbye!")
             app_running = False
