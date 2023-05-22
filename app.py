@@ -1,5 +1,6 @@
 from models import (Base, session, Tracker, engine)
 import time
+import statistics
 from statistics import mean
 
 def average(list_obj):
@@ -35,17 +36,23 @@ def app():
             print("Entry added!")
             time.sleep(1.5)
         elif choice == "2":
-            list_of_times = []
-            for entry in session.query(Tracker).all():
-                entry = entry.time_spent
-                list_of_times.append(entry)
-            average_of_times = mean(list_of_times)
-            print(f'This is the average time spent: {average_of_times} minutes')
-            time.sleep(2)
+            try:
+                list_of_times = []
+                for entry in session.query(Tracker).all():
+                    entry = entry.time_spent
+                    list_of_times.append(entry)
+                average_of_times = mean(list_of_times)
+            except mean.StatisticsError:
+                raise mean.StatisticsError("Oh no! There are no entries in the database.")
+            else:
+                print(f'This is the average time spent: {average_of_times} minutes')
+                time.sleep(2)
         elif choice == "3":
             for entry in session.query(Tracker).all():
                 session.delete(entry)
+                session.commit()
             print("All the previous entries have been deleted.")
+            time.sleep(1.5)
         else:
             print("Goodbye!")
             app_running = False
